@@ -17,6 +17,9 @@ public class Movement : MonoBehaviour
     [SerializeField] LayerMask groundMask;
     BoxCollider2D playerCollider;
 
+    [Header("Animation")]
+    [SerializeField] Animator animator;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -35,6 +38,22 @@ public class Movement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        // animation : check if player is moving : if so, which direction
+        if (rb.velocity.x < 0)
+        {
+            transform.localRotation = new Quaternion(0, 0, 0, 0);
+            animator.SetBool("isWalking", true);
+        }
+        else if (rb.velocity.x > 0)
+        {
+            transform.localRotation = new Quaternion(0, 180, 0, 0);
+            animator.SetBool("isWalking", true);
+        } else
+        {
+            animator.SetBool("isWalking", false);
+        }
+
+        // other stuff
         rb.velocity = new Vector2(horizontalMovement * moveSpeed, rb.velocity.y);
 
         if (jumped)
