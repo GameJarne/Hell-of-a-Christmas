@@ -19,18 +19,25 @@ public class Movement : MonoBehaviour
 
     [Header("Animation")]
     [SerializeField] Animator animator;
+    [SerializeField] SpriteRenderer gfxRenderer;
+    bool inAir = false;
 
     private void Start()
     {
+        // Initialize variables
         rb = GetComponent<Rigidbody2D>();
         playerCollider = GetComponent<BoxCollider2D>();
     }
 
     private void Update()
     {
+        // get player input
         horizontalMovement = Input.GetAxisRaw("Horizontal");
 
-        if (!jumped && Input.GetKeyDown(KeyCode.Space) && IsGrounded())
+        inAir = !IsGrounded();
+
+        // check player jumped
+        if (!jumped && Input.GetKeyDown(KeyCode.Space) && !inAir)
         {
             jumped = true;
         }
@@ -38,25 +45,13 @@ public class Movement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // animation : check if player is moving : if so, which direction
-        if (rb.velocity.x < 0)
-        {
-            transform.localRotation = new Quaternion(0, 0, 0, 0);
-            animator.SetBool("isWalking", true);
-        }
-        else if (rb.velocity.x > 0)
-        {
-            transform.localRotation = new Quaternion(0, 180, 0, 0);
-            animator.SetBool("isWalking", true);
-        } else
-        {
-            animator.SetBool("isWalking", false);
-        }
+        inAir = !IsGrounded();
+        UpdateAnimations();
 
-        // other stuff
+        // move the player
         rb.velocity = new Vector2(horizontalMovement * moveSpeed, rb.velocity.y);
 
-        if (jumped)
+        if (jumped) 
         {
             jumped = false;
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
@@ -66,5 +61,48 @@ public class Movement : MonoBehaviour
     bool IsGrounded()
     {
         return Physics2D.BoxCast(playerCollider.bounds.center, playerCollider.bounds.size, 0f, Vector2.down, .1f, groundMask);
+    }
+
+    public void UpdateAnimations() // makes sure player animations are updated with what's happening
+    {
+        if (rb.velocity.x < 0)
+        {
+            gfxRenderer.flipX = false;
+        } else if (rb.velocity.x > 0)
+        {
+            gfxRenderer.flipX = true;
+        }
+
+        // UPDATE MOVING ANIMATION + ROTATION FOR PLAYER
+        if (!inAir)
+        {
+            if (rb.velocity.x < 0 || rb.velocity.x > 0)
+            {
+                animator.Play("Player Walk");
+                return;
+            }
+            else
+            {
+                animator.Play("Player Idle");
+            }
+        }
+        else
+        {
+            // UPDATE JUMPING ANIMATION
+            if (rb.velocity.y > 0.75f)
+            {
+                animator.Play("Player Jump");
+                return;
+            }
+            else if (rb.velocity.y < -0.75f) // UPDATE FALLING ANIMATION
+            {
+                animator.Play("Player Fall");
+                return;
+            }
+            else // PLAY IDLE ANIMATION
+            {
+                animator.Play("Player Idle");
+            }
+        }
     }
 }
