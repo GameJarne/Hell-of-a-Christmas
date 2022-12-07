@@ -43,7 +43,7 @@ public class Movement : MonoBehaviour
             jumped = true;
         }
         // check player jumped
-        else if (!jumped && Input.GetKey(KeyCode.Space))
+        else if (!jumped && Input.GetKeyDown(KeyCode.Space))
         {
             if (inAir)
             {
@@ -57,7 +57,7 @@ public class Movement : MonoBehaviour
 
     IEnumerator JumpDelay()
     {
-        yield return new WaitForSecondsRealtime(0.5f);
+        yield return new WaitForSecondsRealtime(0.25f);
 
         waitingToJump = false;
     }

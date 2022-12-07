@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Present : MonoBehaviour
 {
+
+
     public enum PresentType
     {
         Red,
@@ -17,7 +19,6 @@ public class Present : MonoBehaviour
     bool isBurning = false;
     bool isBurned = false;
     [SerializeField] PresentType type;
-    [SerializeField] Sprite burnedPresentSprite;
     [SerializeField] float timeBeforeBurn = 2f;
 
     private void Start()
@@ -58,6 +59,5 @@ public class Present : MonoBehaviour
         yield return new WaitForSecondsRealtime(timeBeforeBurn);
 
         isBurned = true;
-        GetComponent<SpriteRenderer>().sprite = burnedPresentSprite;
     }
 }
