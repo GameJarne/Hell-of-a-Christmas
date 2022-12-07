@@ -12,6 +12,7 @@ public class Movement : MonoBehaviour
     [Header("Jumping")]
     [SerializeField] float jumpForce = 20f;
     bool jumped = false;
+    bool waitingToJump = false;
 
     [Header("Ground Check")]
     [SerializeField] LayerMask groundMask;
@@ -36,11 +37,29 @@ public class Movement : MonoBehaviour
 
         inAir = !IsGrounded();
 
-        // check player jumped
-        if (!jumped && Input.GetKeyDown(KeyCode.Space) && !inAir)
+        // Check if the player tried to jump right before landing on the ground;
+        if (waitingToJump && !inAir)
         {
             jumped = true;
         }
+        // check player jumped
+        else if (!jumped && Input.GetKey(KeyCode.Space))
+        {
+            if (inAir)
+            {
+                waitingToJump = true;
+                StartCoroutine(JumpDelay());
+            }
+            else
+                jumped = true;
+        }
+    }
+
+    IEnumerator JumpDelay()
+    {
+        yield return new WaitForSecondsRealtime(0.5f);
+
+        waitingToJump = false;
     }
 
     private void FixedUpdate()
@@ -65,10 +84,10 @@ public class Movement : MonoBehaviour
 
     public void UpdateAnimations() // makes sure player animations are updated with what's happening
     {
-        if (rb.velocity.x < 0)
+        if (horizontalMovement < 0)
         {
             gfxRenderer.flipX = false;
-        } else if (rb.velocity.x > 0)
+        } else if (horizontalMovement > 0)
         {
             gfxRenderer.flipX = true;
         }
@@ -76,7 +95,7 @@ public class Movement : MonoBehaviour
         // UPDATE MOVING ANIMATION + ROTATION FOR PLAYER
         if (!inAir)
         {
-            if (rb.velocity.x < 0 || rb.velocity.x > 0)
+            if (horizontalMovement != 0)
             {
                 animator.Play("Player Walk");
                 return;
@@ -89,12 +108,12 @@ public class Movement : MonoBehaviour
         else
         {
             // UPDATE JUMPING ANIMATION
-            if (rb.velocity.y > 0.75f)
+            if (rb.velocity.y > 1.5f)
             {
                 animator.Play("Player Jump");
                 return;
             }
-            else if (rb.velocity.y < -0.75f) // UPDATE FALLING ANIMATION
+            else if (rb.velocity.y < -1.5f) // UPDATE FALLING ANIMATION
             {
                 animator.Play("Player Fall");
                 return;
