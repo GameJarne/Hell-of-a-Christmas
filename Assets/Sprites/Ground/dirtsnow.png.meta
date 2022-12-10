@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: aa2c3d14795dbcc4ca9be86dd4339525
+guid: 56454bcbe15c20c48b77e3aad751d518
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -47,7 +47,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 75
+  spritePixelsToUnits: 12.8
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -105,7 +105,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: pi-noeyes
+      name: dirtsnow-left
       rect:
         serializedVersion: 2
         x: 0
@@ -119,14 +119,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4a06b60d22d5fde4ba13538ca446b9fa
-      internalID: -874898533
+      spriteID: 86181fc2aeca9eb4fa08e7d613486a70
+      internalID: 812350496
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pi-dead
+      name: dirtsnow-middle
       rect:
         serializedVersion: 2
         x: 16
@@ -140,14 +140,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4f83587f73ec03b438786608cccaabc0
-      internalID: 1482888040
+      spriteID: 3ef70e8998960004cab118481d396642
+      internalID: 1550232579
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pi-normal
+      name: dirtsnow-right
       rect:
         serializedVersion: 2
         x: 32
@@ -161,50 +161,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 189425a246dbb3e43a33014442ae00a5
-      internalID: -499435046
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: pi-fire
-      rect:
-        serializedVersion: 2
-        x: 48
-        y: 0
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 1805ee20c5a00a6428bdedeac9dce345
-      internalID: 134361487
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: pi-happy
-      rect:
-        serializedVersion: 2
-        x: 64
-        y: 0
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 676be6447c4f3f4489f794b7694a4883
-      internalID: 1603315663
+      spriteID: 20217438f3a32e94b8adee41f71b2ae8
+      internalID: 144007581
       vertices: []
       indices: 
       edges: []
@@ -220,11 +178,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      pi-noeyes: -874898533
-      pi-happy: 1603315663
-      pi-dead: 1482888040
-      pi-normal: -499435046
-      pi-fire: 134361487
+      dirtsnow-left: 812350496
+      dirtsnow-right: 144007581
+      dirtsnow-middle: 1550232579
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

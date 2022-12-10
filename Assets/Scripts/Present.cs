@@ -16,9 +16,9 @@ public class Present : MonoBehaviour
     }
 
     Animator animator;
-    bool isBurning = false;
-    bool isBurned = false;
-    [SerializeField] PresentType type;
+    [HideInInspector] public bool isBurning = false;
+    [HideInInspector] public bool isBurned = false;
+    public PresentType type;
     [SerializeField] float timeBeforeBurn = 2f;
 
     private void Start()
@@ -45,19 +45,11 @@ public class Present : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            isBurning = true;
-            StartCoroutine(BurnPresent());
-        }
-    }
-
-    IEnumerator BurnPresent()
+    public IEnumerator BurnPresent()
     {
         yield return new WaitForSecondsRealtime(timeBeforeBurn);
 
         isBurned = true;
+        GetComponent<BoxCollider2D>().enabled = false;
     }
 }

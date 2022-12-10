@@ -23,6 +23,9 @@ public class Movement : MonoBehaviour
     [SerializeField] SpriteRenderer gfxRenderer;
     bool inAir = false;
 
+    [Header("Particles")]
+    [SerializeField] ParticleSystem jumpingParticles;
+
     private void Start()
     {
         // Initialize variables
@@ -73,6 +76,7 @@ public class Movement : MonoBehaviour
         if (jumped) 
         {
             jumped = false;
+            jumpingParticles.Play();
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
         }
     }
