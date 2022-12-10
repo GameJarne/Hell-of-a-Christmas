@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+// NOTE : when taking damage must do 0.5 for 1 heart gone; so just take the damage amount / 2
+
 namespace Player
 {
     public class PlayerHealth : MonoBehaviour
@@ -10,6 +12,8 @@ namespace Player
         [Header("Health")]
         [SerializeField] Health health = new Health();
         [SerializeField] float waterDamage = 1.0f;
+
+        bool allowTakingDamage = true;
 
         [Header("References")]
         [SerializeField] Movement movement;
@@ -22,13 +26,13 @@ namespace Player
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (!allowDying) { return; }
-
-            if (other.CompareTag("Water"))
+            if (other.CompareTag("Water") && allowTakingDamage && allowDying)
             {
+                allowTakingDamage = false;
                 print("is in water");
 
                 health.RemoveHealth(waterDamage);
+
                 if (!health.IsDead())
                     StartCoroutine(TakeWaterDamage());
             }
@@ -36,7 +40,7 @@ namespace Player
 
         private IEnumerator TakeWaterDamage()
         {
-            health.RemoveHealth(waterDamage);
+            health.RemoveHealth(waterDamage / 2);
 
             movement.allowMoving = false;
             movement.animator.Play("Player Baby");
@@ -47,13 +51,14 @@ namespace Player
             movement.allowMoving = true;
             yield return new WaitForSecondsRealtime(1f);
             allowDying = true;
+            allowTakingDamage = true;
         }
 
         private void SetHealthIcons(bool dead)
         {
             foreach (HealthIcon icon in healthIcons)
             {
-                if (icon.index >= health.health)
+                if (icon.index <= health.health)
                 {
                     icon.icon.sprite = (dead) ? deadSprite : normalSprite;
                 } else

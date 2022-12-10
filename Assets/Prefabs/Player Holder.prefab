@@ -10531,7 +10531,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 0
   m_Sprite: {fileID: 604995959, guid: 854b0f4266b5b604b8438b7ac45106ef, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -10904,7 +10904,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88b8e293c9bdbbf43bcd02358a6f0a59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waterDamage: 1
+  health:
+    health: 3
+    maxHealth: 3
+  waterDamage: 0.5
   movement: {fileID: 8095301745242135720}
   healthIcons:
   - icon: {fileID: 774671913}
