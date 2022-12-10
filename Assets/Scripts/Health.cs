@@ -2,17 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Health : MonoBehaviour
+public class Health
 {
-    // Start is called before the first frame update
-    void Start()
+    public float health;
+    public float maxHealth;
+    bool isDead = false;
+
+    public void AddHealth(float addedHealth)
     {
-        
+        health = (health + addedHealth <= maxHealth) ? health + addedHealth : maxHealth;
+        isDead = (health == 0) ? true : false;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void RemoveHealth(float removedHealth)
     {
-        
+        health = (health - removedHealth >= 0) ? health - removedHealth : 0;
+        isDead = (health == 0) ? true : false;
+    }
+
+    public bool IsDead()
+    {
+        return isDead;
     }
 }

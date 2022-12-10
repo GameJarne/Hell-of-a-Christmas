@@ -10813,6 +10813,7 @@ GameObject:
   - component: {fileID: 8095301745242135723}
   - component: {fileID: 8095301745242135720}
   - component: {fileID: 7729141901967978446}
+  - component: {fileID: 510075633817126792}
   - component: {fileID: 8095301745242135721}
   - component: {fileID: 8095301745242135722}
   m_Layer: 0
@@ -10850,6 +10851,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a70a1860470fc1469e9e9dca9b2cf91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  allowMoving: 1
   moveSpeed: 12
   jumpForce: 20
   groundMask:
@@ -10890,6 +10892,29 @@ MonoBehaviour:
   presentIcon: {fileID: 72356381203424854}
   happyHealthIcon: {fileID: 1603315663, guid: aa2c3d14795dbcc4ca9be86dd4339525, type: 3}
   normalHealthIcon: {fileID: -499435046, guid: aa2c3d14795dbcc4ca9be86dd4339525, type: 3}
+--- !u!114 &510075633817126792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8095301745242135716}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88b8e293c9bdbbf43bcd02358a6f0a59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  waterDamage: 1
+  movement: {fileID: 8095301745242135720}
+  healthIcons:
+  - icon: {fileID: 774671913}
+    index: 1
+  - icon: {fileID: 3718951142668636397}
+    index: 2
+  - icon: {fileID: 843586478956217722}
+    index: 3
+  deadSprite: {fileID: 1482888040, guid: aa2c3d14795dbcc4ca9be86dd4339525, type: 3}
+  normalSprite: {fileID: -499435046, guid: aa2c3d14795dbcc4ca9be86dd4339525, type: 3}
 --- !u!50 &8095301745242135721
 Rigidbody2D:
   serializedVersion: 4
