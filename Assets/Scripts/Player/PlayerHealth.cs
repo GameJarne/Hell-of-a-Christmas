@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-// NOTE : when taking damage must do 0.5 for 1 heart gone; so just take the damage amount / 2
+// NOTE : when taking damage must do 0.20 for 1 heart gone; so just take the damage amount / 2
 
 namespace Player
 {
@@ -18,6 +18,7 @@ namespace Player
         [Header("References")]
         [SerializeField] Movement movement;
         [SerializeField] List<HealthIcon> healthIcons = new List<HealthIcon>();
+        [SerializeField] UIDeathManager uiDeathManager;
 
         [Header("Dying")]
         bool allowDying = true;
@@ -40,18 +41,36 @@ namespace Player
 
         private IEnumerator TakeWaterDamage()
         {
-            health.RemoveHealth(waterDamage / 2);
+            health.RemoveHealth(waterDamage);
 
             movement.allowMoving = false;
             movement.animator.Play("Player Baby");
             allowDying = false;
             SetHealthIcons(true);
-            yield return new WaitForSecondsRealtime(1.5f);
-            SetHealthIcons(false);
-            movement.allowMoving = true;
-            yield return new WaitForSecondsRealtime(1f);
-            allowDying = true;
-            allowTakingDamage = true;
+
+            if (!health.IsDead())
+            {
+                yield return new WaitForSecondsRealtime(1.5f);
+
+                SetHealthIcons(false);
+                movement.Jump();
+                movement.allowMoving = true;
+
+                yield return new WaitForSecondsRealtime(1f);
+
+                allowDying = true;
+                allowTakingDamage = true;
+            }
+            else
+            {
+                Die();
+                yield break;
+            }
+        }
+
+        void Die()
+        {
+            uiDeathManager.OnDie();
         }
 
         private void SetHealthIcons(bool dead)

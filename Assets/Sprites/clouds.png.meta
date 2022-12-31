@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: b74ebd6b363ce7043b93d332e92d79cd
+guid: 5b511fadbd37ff54d9033495dfca766e
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -105,185 +105,106 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: water-t-0
+      name: clouds_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 16
-        width: 16
-        height: 16
+        y: 32
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape:
-      - - {x: -8, y: -8}
-        - {x: -8, y: 6}
-        - {x: 8, y: 6}
-        - {x: 8, y: -8}
+      physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 63503b76d08b48541a04f0cde0149afd
-      internalID: 1084977584
+      spriteID: 24c3213d1955815468663e52ef7e080c
+      internalID: -149008437
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: water-t-2
+      name: clouds_1
       rect:
         serializedVersion: 2
-        x: 32
-        y: 16
-        width: 16
-        height: 16
+        x: 64
+        y: 32
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape:
-      - - {x: -8, y: -8}
-        - {x: -8, y: 6}
-        - {x: 8, y: 6}
-        - {x: 8, y: -8}
+      physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e07e28deca9bae84c98edbe7d5dfc9cc
-      internalID: 553299243
+      spriteID: 7e35fd9151422f9449ec635b55c9ee73
+      internalID: 1456781967
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: water-t-1
-      rect:
-        serializedVersion: 2
-        x: 16
-        y: 16
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape:
-      - - {x: -8, y: -8}
-        - {x: -8, y: 6}
-        - {x: 8, y: 6}
-        - {x: 8, y: -8}
-      tessellationDetail: 0
-      bones: []
-      spriteID: 53990f0717ae502449422d5af9f15668
-      internalID: -1186226341
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: water-t-3
-      rect:
-        serializedVersion: 2
-        x: 48
-        y: 16
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape:
-      - - {x: -8, y: -8}
-        - {x: -8, y: 6}
-        - {x: 8, y: 6}
-        - {x: 8, y: -8}
-      tessellationDetail: 0
-      bones: []
-      spriteID: a3810c5d2d9f7ab4c91e1013020588fd
-      internalID: 1897284908
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: water-b-0
+      name: clouds_2
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 16
-        height: 16
+        width: 37
+        height: 32
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0e5f79e8703f5b743a7740275b7e7227
-      internalID: -498671219
+      spriteID: ae7b0565b31a6ec4491c2f09c44348c6
+      internalID: -2134925551
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: water-b-1
+      name: clouds_3
       rect:
         serializedVersion: 2
-        x: 16
+        x: 37
         y: 0
-        width: 16
-        height: 16
+        width: 27
+        height: 32
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6f7c87e6e2ba974479fd70c9c4eb9dec
-      internalID: -1867345129
+      spriteID: a869247a22241bf4d88ded3dae971bc3
+      internalID: 1670244643
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: water-b-2
+      name: clouds_4
       rect:
         serializedVersion: 2
-        x: 32
+        x: 64
         y: 0
-        width: 16
-        height: 16
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d3e22f9fd032c3f458730a9071fd3b05
-      internalID: 510895002
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: water-b-3
-      rect:
-        serializedVersion: 2
-        x: 48
-        y: 0
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: be959b71685fcac4eafec6d316a67d4a
-      internalID: -725506722
+      spriteID: ff802187007ebf9498101ffc2be55764
+      internalID: 1152024052
       vertices: []
       indices: 
       edges: []
@@ -299,14 +220,11 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      water-b-3: -725506722
-      water-t-1: -1186226341
-      water-b-2: 510895002
-      water-t-0: 1084977584
-      water-b-1: -1867345129
-      water-b-0: -498671219
-      water-t-2: 553299243
-      water-t-3: 1897284908
+      clouds_1: 1456781967
+      clouds_0: -149008437
+      clouds_2: -2134925551
+      clouds_3: 1670244643
+      clouds_4: 1152024052
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

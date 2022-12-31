@@ -70,6 +70,12 @@ namespace Player
             waitingToJump = false;
         }
 
+        public void Jump()
+        {
+            jumpingParticles.Play();
+            rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+        }
+
         private void FixedUpdate()
         {
             if (!allowMoving) { return; }
@@ -83,8 +89,7 @@ namespace Player
             if (jumped)
             {
                 jumped = false;
-                jumpingParticles.Play();
-                rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+                Jump();
             }
         }
 

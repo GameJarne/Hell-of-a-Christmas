@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.Tilemaps;
 
 namespace Player
 {
@@ -20,10 +21,17 @@ namespace Player
         [Space]
         [SerializeField] Sprite happyHealthIcon;
         [SerializeField] Sprite normalHealthIcon;
+        [SerializeField] Sprite fireHealthIcon;
+
+        PresentSpawner presentSpawner;
+
+        private void Start()
+        {
+            presentSpawner = PresentSpawner.instance;
+        }
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            print("HELLOOOO");
             if (other.CompareTag("Present"))
             {
                 print("detected a present");
@@ -31,16 +39,18 @@ namespace Player
                 Present present = other.GetComponent<Present>();
                 if (present.isBurned || present.isBurning) { return; }
 
+                if (presentSpawner != null)
+                    presentSpawner.OnPresentCollected(present.transform.position);
+
                 present.isBurning = true;
                 StartCoroutine(present.BurnPresent());
+                StartCoroutine(SetHealthIcons(present.timeBeforeBurn));
 
                 Sprite newIcon = GetPresentIconSprite(present);
                 if (newIcon != null) { presentIcon.sprite = newIcon; }
 
                 presentsCollected++;
                 presentsCollectedText.text = presentsCollected.ToString();
-
-                StartCoroutine(SetHappyHealthIcons(1f));
             }
         }
 
@@ -57,14 +67,21 @@ namespace Player
             return null;
         }
 
-        public IEnumerator SetHappyHealthIcons(float waitUntilUndo)
+        public IEnumerator SetHealthIcons(float waitUntilUndo)
         {
+            foreach (var icon in healthIcons)
+            {
+                icon.sprite = fireHealthIcon;
+            }
+
+            yield return new WaitForSecondsRealtime(waitUntilUndo * 0.75f);
+
             foreach (var icon in healthIcons)
             {
                 icon.sprite = happyHealthIcon;
             }
 
-            yield return new WaitForSecondsRealtime(waitUntilUndo);
+            yield return new WaitForSecondsRealtime(1.0f);
 
             foreach (var icon in healthIcons)
             {

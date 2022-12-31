@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Present : MonoBehaviour
 {
-
-
     public enum PresentType
     {
         Red,
@@ -19,7 +17,7 @@ public class Present : MonoBehaviour
     [HideInInspector] public bool isBurning = false;
     [HideInInspector] public bool isBurned = false;
     public PresentType type;
-    [SerializeField] float timeBeforeBurn = 2f;
+    public float timeBeforeBurn = 2f;
 
     private void Start()
     {
@@ -51,5 +49,6 @@ public class Present : MonoBehaviour
 
         isBurned = true;
         GetComponent<BoxCollider2D>().enabled = false;
+        Destroy(gameObject, 60f);
     }
 }
