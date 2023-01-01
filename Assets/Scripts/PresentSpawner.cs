@@ -25,9 +25,11 @@ public class PresentSpawner : MonoBehaviour
     int currentSpawnAttempts = 0;
 
     [Header("Tilemap Things")]
+    public Tilemap avoidTileMap;
     public Tilemap groundTileMap;
     public Tilemap presentTileMap;
     public RuleTile groundTile;
+    public Tile dirtGroundTile;
     [SerializeField] List<GameObject> presentTileTypes = new List<GameObject>();
 
     bool spawningPresents = false;
@@ -42,6 +44,9 @@ public class PresentSpawner : MonoBehaviour
 
     private void Start()
     {
+        if (tpToPlayer)
+            transform.position = playerTransform.position;
+
         SpawnPresents();
     }
 
@@ -51,6 +56,7 @@ public class PresentSpawner : MonoBehaviour
             transform.position = playerTransform.position;
     }
 
+    // runs when the player collects a present -> new presents can spawn
     public void OnPresentCollected(Vector3 location)
     {
         currentPresentsAmount--;
@@ -64,6 +70,7 @@ public class PresentSpawner : MonoBehaviour
         if (!spawningPresents) { SpawnPresents(); }
     }
 
+    // Spawns presents until until maximum presents are spawned or until maximum attempts reached (performance)
     void SpawnPresents()
     {
         if (currentPresentsAmount >= maxPresents || currentSpawnAttempts >= maxSpawnAttemps) { return; }
@@ -83,11 +90,7 @@ public class PresentSpawner : MonoBehaviour
             var newPresent = new PresentTile(position.x, position.y, presentTile, presentTileMap);
 
             // spawn present
-            bool success = false;
-            if (IsValidPos(groundTileMap, groundTile, position.x, position.y))
-            {
-                newPresent.SpawnTile(groundTileMap, groundTile, out success);
-            }
+            newPresent.SpawnTile(out bool success);
 
             // check if successful and debug
             if (success) 
@@ -104,22 +107,27 @@ public class PresentSpawner : MonoBehaviour
         spawningPresents = false;
     }
 
+    // gets a random position inside of given radius but outside of given avoid radius
     private Vector2Int GetRandomPosition(int xMin, int xMax, int yMin, int yMax)
     {
         Vector2Int randomPosition = new Vector2Int();
 
         Vector3Int pos = presentTileMap.WorldToCell(transform.position);
 
+        // Initialize radius
         generateRandomPosition:
         Vector2Int minPos = new Vector2Int(pos.x - xMin, pos.y - yMin);
         Vector2Int maxPos = new Vector2Int(pos.x + xMax, pos.y + yMax);
 
+        // Generate a random position inside of the given radius
         randomPosition.x = Random.Range(minPos.x, maxPos.x);
         randomPosition.y = Random.Range(minPos.y, maxPos.y);
 
+        // initialize avoid radius
         Vector2Int minAvoidRadius = new Vector2Int(pos.x - avoidRadius, pos.y - avoidRadius);
         Vector2Int maxAvoidRadious = new Vector2Int(pos.x + avoidRadius, pos.y + avoidRadius);
 
+        // make sure generated position isn't inside of avoid radius
         if ((randomPosition.x >= minAvoidRadius.x && randomPosition.x <= maxAvoidRadious.x) && 
             (randomPosition.y >= minAvoidRadius.y    && randomPosition.y <= maxAvoidRadious.y))
         {
@@ -129,18 +137,26 @@ public class PresentSpawner : MonoBehaviour
         return randomPosition;
     }
 
-    // CHECKS IF LOCATION IS VALID FOR A PRESENT TO BE SPAWNED AT
-    bool IsValidPos(Tilemap groundTileMap, TileBase groundTile, int x, int y)
+    // CHECKS IF LOCATION FOR A PRESENT IS VALID
+    bool IsValidPos(int x, int y)
     {
-        if (groundTileMap.GetTile(new Vector3Int(x, y - 1)) == groundTile &&
+        bool isValid = false;
+
+        if ((groundTileMap.GetTile(new Vector3Int(x, y - 1)) == groundTile || 
+            groundTileMap.GetTile(new Vector3Int(x, y - 1)) == dirtGroundTile) &&
+            avoidTileMap.GetTile(new Vector3Int(x, y)) == null &&
             groundTileMap.GetTile(new Vector3Int(x, y)) == null &&
-            !presentLocations.Contains(new Vector2Int(x, y)) && 
+            !presentLocations.Contains(new Vector2Int(x, y)) &&
             !presentLocations.Contains(new Vector2Int(x + 1, y)) && !presentLocations.Contains(new Vector2Int(x - 1, y)))
         {
-            return true;
+            isValid = true;
+        }
+        else
+        {
+            isValid = false;
         }
 
-        return false;
+        return isValid;
     }
 
     [System.Serializable]
@@ -161,11 +177,10 @@ public class PresentSpawner : MonoBehaviour
         }
         public PresentTile() { }
 
-        // OUTS A SUCCESS BOOLEAN -> true: success ; false: failure
-        public void SpawnTile(Tilemap groundTilemap, TileBase groundTile, out bool success)
+        public void SpawnTile(out bool success)
         {
             // check if given location is valid for a present
-            if  (!IsValidPos(groundTilemap, groundTile)) 
+            if  (!instance.IsValidPos(x, y)) 
             { 
                 success = false;
                 return;
@@ -175,32 +190,8 @@ public class PresentSpawner : MonoBehaviour
             var newTile = Instantiate(prefabTile, grid.transform);
             newTile.transform.position = grid.CellToWorld(new Vector3Int(x, y)) + new Vector3(0.625f, 0.625f);
             
+            // successfully spawned present
             success = true;
-        }
-        // DOES NOT OUT A SUCCESS BOOLEAN
-        public void SpawnTile(Tilemap groundTilemap, TileBase groundTile)
-        {
-            if (!IsValidPos(groundTilemap, groundTile))
-            {
-                return;
-            }
-
-            var newTile = Instantiate(prefabTile, grid.transform);
-            newTile.transform.position = grid.CellToWorld(new Vector3Int(x, y)) + new Vector3(0.625f, 0.625f);
-        }
-
-        // CHECKS IF LOCATION IS VALID FOR A PRESENT TO BE SPAWNED AT
-        bool IsValidPos(Tilemap groundTileMap, TileBase groundTile)
-        {
-            bool isValid = false;
-
-            if (groundTileMap.GetTile(new Vector3Int(x, y - 1)) == groundTile &&
-                Equals(groundTileMap.GetTile(new Vector3Int(x, y)), null))
-            {
-                isValid = true;
-            }
-            
-            return isValid;
         }
     }
 }

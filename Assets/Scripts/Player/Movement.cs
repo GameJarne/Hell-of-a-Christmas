@@ -10,7 +10,7 @@ namespace Player
         public bool allowMoving = true;
         [SerializeField] float moveSpeed = 12f;
         float horizontalMovement;
-        Rigidbody2D rb;
+        [HideInInspector] public Rigidbody2D rb;
 
         [Header("Jumping")]
         [SerializeField] float jumpForce = 20f;

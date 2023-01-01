@@ -12,8 +12,10 @@ namespace Player
         [Header("Health")]
         [SerializeField] Health health = new Health();
         [SerializeField] float waterDamage = 1.0f;
+        [SerializeField] float elfDamage = 1.0f;
 
         bool allowTakingDamage = true;
+        bool allowJumpOutWater = false;
 
         [Header("References")]
         [SerializeField] Movement movement;
@@ -36,6 +38,26 @@ namespace Player
 
                 if (!health.IsDead())
                     StartCoroutine(TakeWaterDamage());
+            } else if (other.CompareTag("Water") && allowJumpOutWater)
+            {
+                movement.rb.velocity = Vector2.zero;
+                movement.rb.angularVelocity = 0;
+                movement.Jump();
+            }
+
+            if (other.CompareTag("Elf Water") && allowTakingDamage && allowDying)
+            {
+                allowTakingDamage = false;
+                print("hit an elf's water");
+
+                health.RemoveHealth(elfDamage);
+
+                if (!health.IsDead())
+                {
+                    StartCoroutine(TakeElfDamage());
+                    Elf elf = other.transform.parent.GetComponent<Elf>();
+                    elf.StartCoroutine(elf.OnAttackedPlayer());
+                }
             }
         }
 
@@ -44,6 +66,7 @@ namespace Player
             health.RemoveHealth(waterDamage);
 
             movement.allowMoving = false;
+            movement.rb.velocity = (movement.rb.velocity.y > 0) ? new Vector2(0f, 0f) : new Vector2(0f, movement.rb.velocity.y);
             movement.animator.Play("Player Baby");
             allowDying = false;
             SetHealthIcons(true);
@@ -54,6 +77,37 @@ namespace Player
 
                 SetHealthIcons(false);
                 movement.Jump();
+                movement.allowMoving = true;
+                allowJumpOutWater = true;
+
+                yield return new WaitForSecondsRealtime(1f);
+
+                allowDying = true;
+                allowTakingDamage = true;
+                allowJumpOutWater = false;
+            }
+            else
+            {
+                Die();
+                yield break;
+            }
+        }
+
+        private IEnumerator TakeElfDamage()
+        {
+            health.RemoveHealth(elfDamage);
+
+            movement.allowMoving = false;
+            movement.rb.velocity = (movement.rb.velocity.y > 0) ? new Vector2(0f, 0f) : new Vector2(0f, movement.rb.velocity.y);
+            movement.animator.Play("Player Baby");
+            allowDying = false;
+            SetHealthIcons(true);
+
+            if (!health.IsDead())
+            {
+                yield return new WaitForSecondsRealtime(1.5f);
+
+                SetHealthIcons(false);
                 movement.allowMoving = true;
 
                 yield return new WaitForSecondsRealtime(1f);
@@ -79,10 +133,12 @@ namespace Player
             {
                 if (icon.index <= health.health)
                 {
+                    icon.icon.color = new Color(255f, 255f, 255f, 1f);
                     icon.icon.sprite = (dead) ? deadSprite : normalSprite;
                 } else
                 {
-                    icon.icon.gameObject.SetActive(false);
+                    // icon.icon.gameObject.SetActive(false);
+                    icon.icon.color = new Color(0f, 0f, 0f, 0.25f);
                 }
             }
         }
