@@ -10,6 +10,10 @@ public class Elf : MonoBehaviour
     Animator animator;
 
     bool allowMoving = true;
+    [HideInInspector] public bool isImmune = false;
+
+    [Header("References")]
+    [SerializeField] BoxCollider2D waterTrigger;
 
     [Header("Wall Raycasting")]
     [SerializeField] LayerMask groundLayer;
@@ -24,9 +28,12 @@ public class Elf : MonoBehaviour
 
     public IEnumerator OnAttackedPlayer()
     {
+        isImmune = true;
+
         allowMoving = false;
         rb.velocity = Vector3.zero;
         rb.angularVelocity = 0f;
+        rb.constraints = RigidbodyConstraints2D.FreezeAll;
 
         animator.Play("Elf Idle");
 
@@ -42,7 +49,35 @@ public class Elf : MonoBehaviour
             moveDir *= -1;
             transform.localRotation = new Quaternion(0, 180, 0, 0);
         }
+
+        isImmune = false;
+
+        rb.constraints = RigidbodyConstraints2D.None;
+        rb.constraints = RigidbodyConstraints2D.FreezeRotation;
         allowMoving = true;
+    }
+
+    public IEnumerator OnPlayerAttacked()
+    {
+        isImmune = true;
+
+        allowMoving = false;
+        rb.velocity = Vector3.zero;
+        rb.angularVelocity = 0f;
+        rb.constraints = RigidbodyConstraints2D.FreezeAll;
+
+        waterTrigger.enabled = false;
+
+        animator.Play("Elf ISW");
+
+        yield return new WaitForSecondsRealtime(2f);
+
+        isImmune = false;
+
+        rb.constraints = RigidbodyConstraints2D.None;
+        rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+        allowMoving = true;
+        waterTrigger.enabled = true;
     }
 
     private void Update()

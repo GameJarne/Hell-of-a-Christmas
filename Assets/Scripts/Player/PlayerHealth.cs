@@ -108,9 +108,10 @@ namespace Player
                 yield return new WaitForSecondsRealtime(1.5f);
 
                 SetHealthIcons(false);
+                movement.Jump();
                 movement.allowMoving = true;
 
-                yield return new WaitForSecondsRealtime(1f);
+                yield return new WaitForSecondsRealtime(0.3f);
 
                 allowDying = true;
                 allowTakingDamage = true;

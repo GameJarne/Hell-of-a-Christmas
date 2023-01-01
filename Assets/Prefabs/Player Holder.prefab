@@ -11402,6 +11402,7 @@ GameObject:
   - component: {fileID: 8095301745242135720}
   - component: {fileID: 7729141901967978446}
   - component: {fileID: 510075633817126792}
+  - component: {fileID: 6592354729408186025}
   - component: {fileID: 8095301745242135721}
   - component: {fileID: 8095301745242135722}
   m_Layer: 0
@@ -11510,6 +11511,18 @@ MonoBehaviour:
   uiDeathManager: {fileID: 8158118803467252789}
   deadSprite: {fileID: 1482888040, guid: aa2c3d14795dbcc4ca9be86dd4339525, type: 3}
   normalSprite: {fileID: -499435046, guid: aa2c3d14795dbcc4ca9be86dd4339525, type: 3}
+--- !u!114 &6592354729408186025
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8095301745242135716}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5eeebbe8d014ec240b31251c501d5f2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!50 &8095301745242135721
 Rigidbody2D:
   serializedVersion: 4
