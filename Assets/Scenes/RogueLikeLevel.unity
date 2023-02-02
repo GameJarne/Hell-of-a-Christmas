@@ -3475,7 +3475,7 @@ Tilemap:
       - {fileID: -1867345129, guid: b74ebd6b363ce7043b93d332e92d79cd, type: 3}
       - {fileID: 510895002, guid: b74ebd6b363ce7043b93d332e92d79cd, type: 3}
       - {fileID: -725506722, guid: b74ebd6b363ce7043b93d332e92d79cd, type: 3}
-      m_AnimationSpeed: 5.0000005
+      m_AnimationSpeed: 5
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: -37, y: -8, z: 0}
@@ -30070,10 +30070,6 @@ PrefabInstance:
     - target: {fileID: 8095301744509369029, guid: ee5fbfd2ebb0bda4f8e95257fb644543, type: 3}
       propertyPath: m_Name
       value: Player Holder
-      objectReference: {fileID: 0}
-    - target: {fileID: 8095301744670199485, guid: ee5fbfd2ebb0bda4f8e95257fb644543, type: 3}
-      propertyPath: m_RenderPostProcessing
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ee5fbfd2ebb0bda4f8e95257fb644543, type: 3}

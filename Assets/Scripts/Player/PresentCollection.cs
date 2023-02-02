@@ -11,7 +11,7 @@ namespace Player
     {
         [Header("Presents Collected")]
         [SerializeField] TextMeshProUGUI presentsCollectedText;
-        [SerializeField] int presentsCollected = 0;
+        public int presentsCollected = 0;
 
         [Header("UI and Icons")]
         [SerializeField] List<Image> healthIcons = new List<Image>();

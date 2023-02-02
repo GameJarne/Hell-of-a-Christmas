@@ -24,6 +24,8 @@ namespace Player
 
         [Header("Dying")]
         bool allowDying = true;
+        public string waterDeath = "fell in water";
+        public string elfDeath = "slain by elf";
         [SerializeField] Sprite deadSprite;
         [SerializeField] Sprite normalSprite;
 
@@ -88,7 +90,7 @@ namespace Player
             }
             else
             {
-                Die();
+                Die(waterDeath);
                 yield break;
             }
         }
@@ -118,14 +120,14 @@ namespace Player
             }
             else
             {
-                Die();
+                Die(elfDeath);
                 yield break;
             }
         }
 
-        void Die()
+        void Die(string cause)
         {
-            uiDeathManager.OnDie();
+            uiDeathManager.OnDie(cause);
         }
 
         private void SetHealthIcons(bool dead)
