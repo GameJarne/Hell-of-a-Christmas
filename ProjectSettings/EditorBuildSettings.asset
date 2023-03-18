@@ -9,6 +9,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Main Menu.unity
     guid: 8a71ea3abcc7c644cbb13071d4669fe0
   - enabled: 1
-    path: Assets/Scenes/RogueLikeLevel.unity
+    path: Assets/Scenes/Main Level.unity
     guid: 8c5a502b2d66de04b824a6e16d809ee4
   m_configObjects: {}

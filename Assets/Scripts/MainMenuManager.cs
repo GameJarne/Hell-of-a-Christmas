@@ -1,31 +1,35 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class MainMenuManager : MonoBehaviour
 {
-    public SceneAsset playScene;
-    public Canvas settingsCanvas;
+    public string playScene;
+    public GameObject settingsCanvas;
+    public PlayerStats playerStats;
+    public TextMeshProUGUI highScoreText;
 
     private void Start()
     {
-        settingsCanvas.enabled = false;
+        playerStats.Load();
+        settingsCanvas.SetActive(false);
+        highScoreText.text = $"High Score: {playerStats.highScore}";
     }
 
     public void OnPlayButton()
     {
-        SceneManager.LoadSceneAsync(playScene.name, LoadSceneMode.Single);
+        SceneManager.LoadSceneAsync(playScene, LoadSceneMode.Single);
     }
 
     public void OnSettingsButton()
     {
-        settingsCanvas.enabled = !settingsCanvas.enabled;
+        settingsCanvas.SetActive(!settingsCanvas.activeSelf);
     }
 
     public void OnQuitButton()
     {
+        playerStats.Save();
         Application.Quit();
     }
 }

@@ -9,6 +9,7 @@ TagManager:
   - Elf Water
   - Elf
   - Elf Turn
+  - Present Spawner
   layers:
   - Default
   - TransparentFX

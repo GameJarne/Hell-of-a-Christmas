@@ -6,9 +6,11 @@ using UnityEngine.Tilemaps;
 public class PresentSpawner : MonoBehaviour
 {
     public static PresentSpawner instance;
+    public PlayerSettings playerSettings;
 
     List<Vector2Int> presentLocations = new List<Vector2Int>();
 
+    [Space]
     public bool tpToPlayer = true;
     public Transform playerTransform;
 
@@ -30,6 +32,7 @@ public class PresentSpawner : MonoBehaviour
     public Tilemap presentTileMap;
     public RuleTile groundTile;
     public Tile dirtGroundTile;
+    public Tile stoneGroundTile;
     [SerializeField] List<GameObject> presentTileTypes = new List<GameObject>();
 
     bool spawningPresents = false;
@@ -40,6 +43,8 @@ public class PresentSpawner : MonoBehaviour
             instance = this;
         else
             Destroy(this);
+        maxPresents = playerSettings.maxPresents;
+        maxSpawnAttemps = 100 * maxPresents;
     }
 
     private void Start()
@@ -47,6 +52,8 @@ public class PresentSpawner : MonoBehaviour
         if (tpToPlayer)
             transform.position = playerTransform.position;
 
+        currentPresentsAmount = 0;
+        currentSpawnAttempts = 0;
         SpawnPresents();
     }
 
@@ -143,7 +150,8 @@ public class PresentSpawner : MonoBehaviour
         bool isValid = false;
 
         if ((groundTileMap.GetTile(new Vector3Int(x, y - 1)) == groundTile || 
-            groundTileMap.GetTile(new Vector3Int(x, y - 1)) == dirtGroundTile) &&
+            groundTileMap.GetTile(new Vector3Int(x, y - 1)) == dirtGroundTile ||
+            groundTileMap.GetTile(new Vector3Int(x, y - 1)) == stoneGroundTile) &&
             avoidTileMap.GetTile(new Vector3Int(x, y)) == null &&
             groundTileMap.GetTile(new Vector3Int(x, y)) == null &&
             !presentLocations.Contains(new Vector2Int(x, y)) &&

@@ -4,20 +4,21 @@ using UnityEngine;
 
 public class Elf : MonoBehaviour
 {
-    [SerializeField] float speed = 10f;
-    Rigidbody2D rb;
-    float moveDir = -1; // -1 = left ; 1 = right
-    Animator animator;
+    [SerializeField] private float speed = 10f;
+    private Rigidbody2D rb;
+    private float moveDir = -1; // -1 = left ; 1 = right
+    private Animator animator;
+    [SerializeField] private AudioSource fireSound;
 
-    bool allowMoving = true;
+    private bool allowMoving = true;
     [HideInInspector] public bool isImmune = false;
 
     [Header("References")]
-    [SerializeField] BoxCollider2D waterTrigger;
+    [SerializeField] private BoxCollider2D waterTrigger;
 
     [Header("Wall Raycasting")]
-    [SerializeField] LayerMask groundLayer;
-    [SerializeField] float rayDistance = 1f;
+    [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private float rayDistance = 1f;
 
     // Start is called before the first frame update
     void Start()
@@ -69,8 +70,11 @@ public class Elf : MonoBehaviour
         waterTrigger.enabled = false;
 
         animator.Play("Elf ISW");
+        fireSound.Play();
 
         yield return new WaitForSecondsRealtime(2f);
+
+        fireSound.Stop();
 
         isImmune = false;
 

@@ -13,7 +13,7 @@ public class UIDeathManager : MonoBehaviour
 
     [Space]
     [SerializeField] GameObject deathScreen;
-    [SerializeField] SceneAsset mainMenuScene;
+    [SerializeField] string mainMenuScene;
 
     [Space]
     [SerializeField] TextMeshProUGUI causeOfDeathText;
@@ -43,6 +43,6 @@ public class UIDeathManager : MonoBehaviour
 
     public void OnLeaveButton()
     {
-        SceneManager.LoadSceneAsync(mainMenuScene.name, LoadSceneMode.Single);
+        SceneManager.LoadSceneAsync(mainMenuScene, LoadSceneMode.Single);
     }
 }

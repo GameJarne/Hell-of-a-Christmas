@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7056809334857659999}
   - component: {fileID: 7056809334857659998}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Elf Turn Trigger
   m_TagString: Elf Turn
   m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}

@@ -13,11 +13,12 @@ public class Present : MonoBehaviour
         Purple
     }
 
-    Animator animator;
+    private Animator animator;
     [HideInInspector] public bool isBurning = false;
     [HideInInspector] public bool isBurned = false;
     public PresentType type;
     public float timeBeforeBurn = 2f;
+    [SerializeField] private AudioSource fireSound;
 
     private void Start()
     {
@@ -45,8 +46,10 @@ public class Present : MonoBehaviour
 
     public IEnumerator BurnPresent()
     {
+        fireSound.Play();
         yield return new WaitForSecondsRealtime(timeBeforeBurn);
 
+        fireSound.Stop();
         isBurned = true;
         GetComponent<BoxCollider2D>().enabled = false;
         Destroy(gameObject, 60f);

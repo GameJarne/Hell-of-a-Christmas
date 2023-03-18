@@ -3,23 +3,21 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Player Stats", menuName = "Player/Player Stats")]
-public class PlayerStats : ScriptableObject
+[CreateAssetMenu(fileName = "Player Settings", menuName = "Player/Player Settings")]
+public class PlayerSettings : ScriptableObject
 {
-    public int highScore = 0; // highest score of presents collected
+    public int maxPresents = 5;
+    public bool postProcessing = true;
+    public float musicVolume = 0.05f;
 
     [Header("Saving and Loading")]
-    public string fileName = "playerStats.json";
+    public string fileName = "playerSettings.json";
 
-    public void SetHighScore(int newScore) // sets highscore if new score is higher
+    public void ResetSettings()
     {
-        highScore = (newScore > highScore) ? newScore : highScore;
-        Save();
-    }
-
-    public void ResetStats()
-    {
-        highScore = 0;
+        maxPresents = 5;
+        postProcessing = true;
+        musicVolume = 0.05f;
         Save();
     }
 
@@ -28,7 +26,9 @@ public class PlayerStats : ScriptableObject
     {
         // init
         SavedStats stats = new SavedStats();
-        stats.highScore = highScore;
+        stats.maxPresents = maxPresents;
+        stats.postProcessing = postProcessing;
+        stats.musicVolume = musicVolume;
 
         // setup save
         string location = Application.streamingAssetsPath + "/saves";
@@ -40,7 +40,7 @@ public class PlayerStats : ScriptableObject
         string json = JsonUtility.ToJson(stats);
         File.WriteAllText(fullLocation, json);
     }
-    
+
     public void Load()
     {
         // init
@@ -55,13 +55,17 @@ public class PlayerStats : ScriptableObject
             stats = JsonUtility.FromJson<SavedStats>(json);
 
             // set stats to loaded stats
-            highScore = stats.highScore;
+            maxPresents = stats.maxPresents;
+            postProcessing = stats.postProcessing;
+            musicVolume = stats.musicVolume;
         }
     }
 
     class SavedStats
     {
-        public int highScore;
+        public int maxPresents = 5;
+        public bool postProcessing = true;
+        public float musicVolume = 0.05f;
     }
     #endregion
 }
